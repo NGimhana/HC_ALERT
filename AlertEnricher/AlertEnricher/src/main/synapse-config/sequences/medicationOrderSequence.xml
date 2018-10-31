@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="medicationOrderSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log description="Log" level="custom">
+        <property name="Log" value="Request Came"/>
+    </log>
+    <property description="patientID" expression="json-eval($.event.patientId)" name="uri.var.patientid" scope="default"
+              type="STRING"/>
+    <property description="prescriberID" expression="json-eval($.event.prescriberId)" name="uri.var.prescriberId"
+              scope="default" type="STRING"/>
+    <property description="Medication" expression="json-eval($.event.Medication)" name="uri.var.Medication"
+              scope="default" type="STRING"/>
+    <property description="medicationOrderId" expression="json-eval($.event.medicationOrderId)"
+              name="uri.var.medicationOrderId" scope="default" type="STRING"/>
+    <property description="dosageInstruction" expression="json-eval($.event.Dosageinstruction)"
+              name="uri.var.Dosageinstruction" scope="default" type="STRING"/>
+    <property description="frequency" expression="json-eval($.event.frequency )" name="uri.var.frequency"
+              scope="default" type="STRING"/>
+    <property description="periodUnits" expression="json-eval($.event.periodUnits)" name="uri.var.periodUnits"
+              scope="default" type="STRING"/>
+    <property description="period" expression="json-eval($.event.period)" name="uri.var.period" scope="default"
+              type="DOUBLE"/>
+    <property description="startDate" expression="json-eval($.event.startDate)" name="uri.var.startDate" scope="default"
+              type="STRING"/>
+    <property description="endDate" expression="json-eval($.event.endDate)" name="uri.var.endDate" scope="default"
+              type="STRING"/>
+    <log level="custom">
+        <property expression="get-property('uri.var.patientId')" name="PatientID"/>
+    </log>
+    <log level="custom">
+        <property expression="get-property('uri.var.prescriberId')" name="PrescriberID"/>
+    </log>
+    <header name="Accept" scope="transport" value="application/json"/>
+    <call/>
+    <property description="Patient Name" expression="json-eval($.name[0].text)" name="uri.var.patientName"
+              scope="default" type="STRING"/>
+    <property description="Home Address Line" expression="json-eval($.address[0].line[0])" name="uri.var.patientAddress"
+              scope="default" type="STRING"/>
+    <property description="Home Address City" expression="json-eval($.address[0].city)" name="uri.var.addressCity"
+              scope="default" type="STRING"/>
+    <property description="Home Address State" expression="json-eval($.address[0].state)" name="uri.var.addressState"
+              scope="default" type="STRING"/>
+    <property description="Home Phone" expression="json-eval($.telecom[0].value)" name="uri.var.homePhone"
+              scope="default" type="STRING"/>
+    <property description="Email" expression="json-eval($.telecom[5].value)" name="uri.var.email" scope="default"
+              type="STRING"/>
+    <property description="Gender" expression="json-eval($.gender)" name="uri.var.gender" scope="default"
+              type="STRING"/>
+    <property description="BirthDate" expression="json-eval($.birthDate)" name="uri.var.birthdate" scope="default"
+              type="STRING"/>
+    <header name="Accept" scope="transport" value="application/json"/>
+    <call/>
+    <property description="Practitioner Name" expression="json-eval($.name.text)" name="uri.var.pratitionerName"
+              scope="default" type="STRING"/>
+    <dblookup>
+        <connection>
+            <pool>
+                <driver>com.mysql.jdbc.Driver</driver>
+                <url>jdbc:mysql://localhost:3306/EPIC_HC_ALERT_DB</url>
+                <user>root</user>
+                <password>1234</password>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[select patientId from Patient where patientId = ?]]></sql>
+            <parameter expression="get-property('uri.var.patientid')" type="VARCHAR"/>
+            <result column="patientId" name="uri.var.patientid123"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[select prescriberId from Practitioner  where prescriberId = ?]]></sql>
+            <parameter expression="get-property('uri.var.prescriberId')" type="VARCHAR"/>
+            <result column="prescriberId" name="uri.var.prescriberId123"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[select medicationOrderId from MedicationOrder where medicationOrderId = ?]]></sql>
+            <parameter expression="get-property('uri.var.medicationOrderId')" type="VARCHAR"/>
+            <result column="medicationOrderId" name="uri.var.reportId123"/>
+        </statement>
+    </dblookup>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addPatientOP xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:patientName>$2</p:patientName>
+                <p:email>$3</p:email>
+                <p:homeaddressline>$4</p:homeaddressline>
+                <p:homeaddresscity>$5</p:homeaddresscity>
+                <p:homeaddressstate>$6</p:homeaddressstate>
+                <p:homephone>$7</p:homephone>
+                <p:gender>$8</p:gender>
+                <p:birthdate>$9</p:birthdate>
+            </p:addPatientOP>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientName')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.email')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientAddress')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressCity')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressState')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.homePhone')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.gender')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.birthdate')"/>
+        </args>
+    </payloadFactory>
+    <filter xpath="get-property('uri.var.patientid123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Patient Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Patient Written"/>
+            </log>
+            <call/>
+        </else>
+    </filter>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addPractitionerOP xmlns:p="http://ws.wso2.org/dataservice">
+                <p:prescriberId>$1</p:prescriberId>
+                <p:practitionerName>$2</p:practitionerName>
+            </p:addPractitionerOP>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.prescriberId')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.pratitionerName')"/>
+        </args>
+    </payloadFactory>
+    <log level="custom">
+        <property expression="get-property('uri.var.prescriberId123')" name="LogDBPrescriber"/>
+    </log>
+    <filter xpath="get-property('uri.var.prescriberId123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Prescriber Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Prescriber Written"/>
+            </log>
+            <call/>
+        </else>
+    </filter>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addMedicationOrderOp xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:medicationOrderId>$2</p:medicationOrderId>
+                <p:frequency>$3</p:frequency>
+                <p:periodUnits>$4</p:periodUnits>
+                <p:period>$5</p:period>
+                <p:startDate>$6</p:startDate>
+                <p:endDate>$7</p:endDate>
+                <p:medication>$8</p:medication>
+                <p:dosageInstruction>$9</p:dosageInstruction>
+                <p:prescriberId>$10</p:prescriberId>
+            </p:addMedicationOrderOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.medicationOrderId')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.frequency')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.periodUnits')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.period')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.startDate')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.endDate')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.Medication')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.Dosageinstruction')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.prescriberId')"/>
+        </args>
+    </payloadFactory>
+    <log level="custom">
+        <property expression="get-property('uri.var.reportId123')" name="LogDB"/>
+    </log>
+    <filter xpath="get-property('uri.var.reportId123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Alert Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Alert Written"/>
+            </log>
+            <call/>
+        </else>
+    </filter>
+    <respond/>
+</sequence>

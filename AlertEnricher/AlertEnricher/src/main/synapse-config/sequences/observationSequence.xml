@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="observationSequence" onError="fault" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log description="Log" level="custom">
+        <property name="Log" value="Request Came"/>
+    </log>
+    <property description="Report" expression="json-eval($.event.report)" name="uri.var.report" scope="default"
+              type="STRING"/>
+    <property description="reportdate" expression="json-eval($.event.reportdate)" name="uri.var.reportdate"
+              scope="default" type="STRING"/>
+    <property description="result" expression="json-eval($.event.result)" name="uri.var.result" scope="default"
+              type="STRING"/>
+    <property description="Sender Email" expression="json-eval($.event.email)" name="uri.var.senderemail"
+              scope="default" type="STRING"/>
+    <property description="GetPatientID" expression="json-eval($.event.patientId)" name="uri.var.patientid"
+              scope="default" type="STRING"/>
+    <property description="reportId" expression="json-eval($.event.reportId)" name="uri.var.reportId" scope="default"
+              type="STRING"/>
+    <property description="myValue" expression="json-eval($.event.myValue)" name="uri.var.myValue" scope="default"
+              type="STRING"/>
+    <property description="lowValue" expression="json-eval($.event.lowValue)" name="uri.var.lowValue" scope="default"
+              type="STRING"/>
+    <property description="highValue" expression="json-eval($.event.highValue)" name="uri.var.highValue" scope="default"
+              type="STRING"/>
+    <log level="custom">
+        <property expression="get-property('uri.var.patientid')" name="PatientID"/>
+    </log>
+    <header name="Accept" scope="transport" value="application/json"/>
+    <call>
+        <endpoint>
+            <http method="get" uri-template="https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Patient/{uri.var.patientid}"/>
+        </endpoint>
+    </call>
+    <property description="Patient Name" expression="json-eval($.name[0].text)" name="uri.var.patientName"
+              scope="default" type="STRING"/>
+    <property description="Home Address Line" expression="json-eval($.address[0].line[0])" name="uri.var.patientAddress"
+              scope="default" type="STRING"/>
+    <property description="Home Address City" expression="json-eval($.address[0].city)" name="uri.var.addressCity"
+              scope="default" type="STRING"/>
+    <property description="Home Address State" expression="json-eval($.address[0].state)" name="uri.var.addressState"
+              scope="default" type="STRING"/>
+    <property description="Home Phone" expression="json-eval($.telecom[0].value)" name="uri.var.homePhone"
+              scope="default" type="STRING"/>
+    <property description="Email" expression="json-eval($.telecom[5].value)" name="uri.var.email" scope="default"
+              type="STRING"/>
+    <property description="Gender" expression="json-eval($.gender)" name="uri.var.gender" scope="default"
+              type="STRING"/>
+    <property description="BirthDate" expression="json-eval($.birthDate)" name="uri.var.birthdate" scope="default"
+              type="STRING"/>
+    <dblookup>
+        <connection>
+            <pool>
+                <driver>com.mysql.jdbc.Driver</driver>
+                <url>jdbc:mysql://localhost:3306/EPIC_HC_ALERT_DB</url>
+                <user>root</user>
+                <password>1234</password>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[select reportId from DiagnosticReport where reportId = ?]]></sql>
+            <parameter expression="get-property('uri.var.reportId')" type="VARCHAR"/>
+            <result column="reportId" name="uri.var.reportId123"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[select patientId from Patient where patientId = ?]]></sql>
+            <parameter expression="get-property('uri.var.patientid')" type="VARCHAR"/>
+            <result column="patientId" name="uri.var.patientid123"/>
+        </statement>
+    </dblookup>
+    <log level="custom">
+        <property expression="get-property('uri.var.reportId123')" name="LogDBReport"/>
+    </log>
+    <log level="custom">
+        <property expression="get-property('uri.var.patientidd123')" name="LogDBPatient"/>
+    </log>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addPatientOP xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:patientName>$2</p:patientName>
+                <p:email>$3</p:email>
+                <p:homeaddressline>$4</p:homeaddressline>
+                <p:homeaddresscity>$5</p:homeaddresscity>
+                <p:homeaddressstate>$6</p:homeaddressstate>
+                <p:homephone>$7</p:homephone>
+                <p:gender>$8</p:gender>
+                <p:birthdate>$9</p:birthdate>
+            </p:addPatientOP>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientName')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.email')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientAddress')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressCity')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressState')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.homePhone')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.gender')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.birthdate')"/>
+        </args>
+    </payloadFactory>
+    <filter xpath="get-property('uri.var.patientid123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Patient Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Patient Written"/>
+            </log>
+            <call>
+                <endpoint>
+                    <http method="post"
+                          uri-template="http://localhost:8283/services/DiagnosticAlertDataService/addPatientOP"/>
+                </endpoint>
+            </call>
+        </else>
+    </filter>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addDiagnosticAlertOp xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:report>$2</p:report>
+                <p:result>$3</p:result>
+                <p:reportId>$4</p:reportId>
+                <p:myValue>$5</p:myValue>
+                <p:lowValue>$6</p:lowValue>
+                <p:highValue>$7</p:highValue>
+                <p:reportDate>$8</p:reportDate>
+            </p:addDiagnosticAlertOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.report')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.result')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.reportId')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.myValue')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.lowValue')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.highValue')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.reportdate')"/>
+        </args>
+    </payloadFactory>
+    <filter xpath="get-property('uri.var.reportId123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Alert Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Alert Written"/>
+            </log>
+            <call>
+                <endpoint>
+                    <http method="post"
+                          uri-template="http://localhost:8283/services/DiagnosticAlertDataService/addDiagnosticAlertOp"/>
+                </endpoint>
+            </call>
+        </else>
+    </filter>
+    <respond/>
+</sequence>
