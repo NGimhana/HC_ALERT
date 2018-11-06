@@ -9,9 +9,22 @@
   <name>DatabasePollCompositeApplication</name>
   <description>DatabasePollCompositeApplication</description>
   <properties>
+    <com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_HB_OBSERVATION_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_HB_OBSERVATION_SEQUENCE>
     <com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE>
-    <com.example.DatabasePoll.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.example.DatabasePoll.lib_._kafkaTransport-connector>
+    <com.example.DatabasePoll.sequence_._CERNER_REPORT_FILTER>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._CERNER_REPORT_FILTER>
     <artifact.types>jaggery/app=zip,synapse/priority-executor=xml,synapse/inbound-endpoint=xml,service/rule=aar,synapse/message-store=xml,event/stream=json,service/meta=xml,datasource/datasource=xml,synapse/proxy-service=xml,bpel/workflow=zip,synapse/sequence=xml,synapse/endpointTemplate=xml,carbon/application=car,wso2/gadget=dar,synapse/api=xml,synapse/event-source=xml,synapse/message-processors=xml,event/receiver=xml,lib/dataservice/validator=jar,synapse/template=xml,synapse/endpoint=xml,lib/carbon/ui=jar,lib/synapse/mediator=jar,event/publisher=xml,synapse/local-entry=xml,synapse/task=xml,webapp/jaxws=war,registry/resource=zip,synapse/configuration=xml,service/axis2=aar,synapse/lib=zip,synapse/sequenceTemplate=xml,event/execution-plan=siddhiql,service/dataservice=dbs,web/application=war,lib/library/bundle=jar</artifact.types>
+    <com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE>
+    <com.example.DatabasePoll.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.example.DatabasePoll.lib_._kafkaTransport-connector>
+    <com.example.DatabasePoll.sequence_._CERNER_CONNECTOR_INITIALIZATION>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._CERNER_CONNECTOR_INITIALIZATION>
+    <com.example.DatabasePoll.sequence_._EPIC_CONNECTOR_INITIALIZATION>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_CONNECTOR_INITIALIZATION>
+    <com.example.DatabasePoll.sequence_._EPIC_REPORT_FILTER>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_REPORT_FILTER>
+    <com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE>
+    <com.example.DatabasePoll.lib_._cerner-connector>capp/EnterpriseServiceBus</com.example.DatabasePoll.lib_._cerner-connector>
+    <com.example.DatabasePoll.lib_._Epic-connector>capp/EnterpriseServiceBus</com.example.DatabasePoll.lib_._Epic-connector>
+    <com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE>
+    <com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._CERNER_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE>
+    <com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml>
+    <com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml>capp/EnterpriseServiceBus</com.example.DatabasePoll.sequence_._EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml>
   </properties>
   <dependencies>
     <dependency>
@@ -21,8 +34,86 @@
       <type>zip</type>
     </dependency>
     <dependency>
+      <groupId>com.example.DatabasePoll.lib</groupId>
+      <artifactId>Epic-connector</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.lib</groupId>
+      <artifactId>cerner-connector</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>CERNER_CONNECTOR_INITIALIZATION</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>CERNER_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>CERNER_DATA_POLL_HB_OBSERVATION_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>CERNER_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>CERNER_REPORT_FILTER</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_CONNECTOR_INITIALIZATION</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
       <groupId>com.example.DatabasePoll.sequence</groupId>
       <artifactId>EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.DatabasePoll.sequence</groupId>
+      <artifactId>EPIC_REPORT_FILTER</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>

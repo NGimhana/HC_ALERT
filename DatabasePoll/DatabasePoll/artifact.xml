@@ -14,4 +14,25 @@
     <artifact name="EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
         <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE.xml</file>
     </artifact>
+    <artifact name="EPIC_CONNECTOR_INITIALIZATION" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_CONNECTOR_INITIALIZATION.xml</file>
+    </artifact>
+    <artifact name="CERNER_CONNECTOR_INITIALIZATION" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CERNER_CONNECTOR_INITIALIZATION.xml</file>
+    </artifact>
+    <artifact name="CERNER_DATA_POLL_HB_OBSERVATION_SEQUENCE" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CERNER_DATA_POLL_HB_OBSERVATION_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="CERNER_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CERNER_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="CERNER_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CERNER_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="CERNER_REPORT_FILTER" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CERNER_REPORT_FILTER.xml</file>
+    </artifact>
+    <artifact name="EPIC_REPORT_FILTER" groupId="com.example.DatabasePoll.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_REPORT_FILTER.xml</file>
+    </artifact>
 </artifacts>

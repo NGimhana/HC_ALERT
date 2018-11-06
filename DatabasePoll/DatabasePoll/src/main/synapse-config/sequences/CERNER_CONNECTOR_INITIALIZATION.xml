@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CERNER_CONNECTOR_INITIALIZATION" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <cerner.init>
+        <base>https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca</base>
+    </cerner.init>
+</sequence>

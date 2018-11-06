@@ -6,18 +6,19 @@
     <header name="Accept" scope="transport" value="application/json"/>
     <call>
         <endpoint>
-            <http method="get" uri-template="http://localhost:8283/services/RDBMSDataService/allpatients"/>
+            <http method="get" uri-template="http://localhost:8283/services/RDBMSDataService/allSelectedEpicPatients"/>
         </endpoint>
     </call>
     <iterate expression="//Patients/Patient">
         <target>
             <sequence>
-                <property description="ID" expression="//patientId" name="uri.var.id" scope="default" type="STRING"/>
-                <call>
-                    <endpoint>
-                        <http method="get" uri-template="https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Observation?patient={uri.var.id}&amp;code=2823-3"/>
-                    </endpoint>
-                </call>
+                <property description="ID" expression="//patientId" name="id" scope="default" type="STRING"/>
+                <!-- EPIC CONNECTOR INITIALIZATION -->
+                <sequence key="EPIC_CONNECTOR_INITIALIZATION"/>
+                <Epic.searchObservation>
+                    <patient>{$ctx:id}</patient>
+                    <code>2823-3</code>
+                </Epic.searchObservation>
                 <property description="To" expression="json-eval($.entry[0].resource.issue[0].details.coding[0].code)" name="uri.var.issue" scope="default" type="STRING"/>
                 <log level="custom">
                     <property expression="get-property('uri.var.issue')" name="Issue"/>
@@ -29,21 +30,7 @@
                         </log>
                         <drop/>
                     </then>
-                    <else>
-                        <log level="custom">
-                            <property expression="json-eval($.)" name="Log"/>
-                        </log>
-                        <kafkaTransport.init>
-                            <bootstrapServers>localhost:9092</bootstrapServers>
-                            <keySerializerClass>org.apache.kafka.common.serialization.StringSerializer</keySerializerClass>
-                            <valueSerializerClass>org.apache.kafka.common.serialization.StringSerializer</valueSerializerClass>
-                        </kafkaTransport.init>
-                        <kafkaTransport.publishMessages>
-                            <topic>potasium-in-blood-epic</topic>
-                            <message>HelloKakfa</message>
-                            <partitionNo>0</partitionNo>
-                        </kafkaTransport.publishMessages>
-                    </else>
+                    <else/>
                 </filter>
             </sequence>
         </target>
