@@ -159,4 +159,4 @@ Alert data are exposed as RESTful APIs. These are not recommended to be used as 
     * Retrieves all Monitoring Epic Patients    
     
     
-Click ![here](https://github.com/NGimhana/HC_ALERT/blob/master/docs/config.md) for the Installation Guide    
+Click [here](https://github.com/NGimhana/HC_ALERT/blob/master/docs/config.md) for the Installation Guide    
