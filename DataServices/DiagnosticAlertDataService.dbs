@@ -1,0 +1,160 @@
+<data enableBatchRequests="true" enableBoxcarring="true" name="DiagnosticAlertDataService" transports="http https local">
+   <description>Using Data Services for Diagnostic Alert Table                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                &#xd;                                </description>
+   <config enableOData="false" id="Datasource">
+      <property name="driverClassName">com.mysql.jdbc.Driver</property>
+      <property name="url">jdbc:mysql://localhost:3306/EPIC_HC_ALERT_DB</property>
+      <property name="username">root</property>
+      <property name="password">1234</property>
+   </config>
+   <query id="addDiagnosticAlert" useConfig="Datasource">
+      <sql>insert into DiagnosticReport (reportId , patientId,report,reportDate,result,myValue,lowValue,highValue) values (:reportId, :patientId,:report,:reportDate,:result,:myValue , :lowValue , :highValue)</sql>
+      <param name="patientId" sqlType="STRING"/>
+      <param name="report" sqlType="STRING"/>
+      <param name="result" sqlType="STRING"/>
+      <param name="reportId" sqlType="STRING"/>
+      <param name="myValue" sqlType="STRING"/>
+      <param name="lowValue" sqlType="STRING"/>
+      <param name="highValue" sqlType="STRING"/>
+      <param name="reportDate" sqlType="STRING"/>
+   </query>
+   <query id="addPatient" useConfig="Datasource">
+      <sql>insert into Patient (patientId , patientName,email,homeaddressline,homeaddresscity,homeaddressstate,homephone,gender,birthdate) values(:patientId , :patientName , :email , :homeaddressline, :homeaddresscity , :homeaddressstate , :homephone , :gender , :birthdate)</sql>
+      <param name="patientId" sqlType="STRING"/>
+      <param name="patientName" sqlType="STRING"/>
+      <param name="email" sqlType="STRING"/>
+      <param name="homeaddressline" sqlType="STRING"/>
+      <param name="homeaddresscity" sqlType="STRING"/>
+      <param name="homeaddressstate" sqlType="STRING"/>
+      <param name="homephone" sqlType="STRING"/>
+      <param name="gender" sqlType="STRING"/>
+      <param name="birthdate" sqlType="STRING"/>
+   </query>
+   <query id="allObservationReports" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportDate":"$reportDate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+   </query>
+   <query id="allReportsByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportDate":"$reportDate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <query id="allHBreportsByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where DiagnosticReport.report = 'HEMOGLOBIN [G/DL] IN BLOOD' and Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportDate":"$reportDate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <query id="allGlucoseReportsByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where DiagnosticReport.report = 'GLUCOSE [MG/DL] IN SER/PLAS' and Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportDate":"$reportDate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <query id="allCholesterolByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where DiagnosticReport.report = 'CHOLESTEROL [MMOL/L] IN SER/PLAS' and Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportDate":"$reportDate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <query id="allPotassiumReportsByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where DiagnosticReport.report = 'POTASSIUM [MMOL/L] IN SER/PLAS' and Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportdate":"$reportdate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <query id="allReportsByPatientIdReportDate" useConfig="Datasource">
+      <sql>select Patient.patientId , reportId ,report , reportDate , result, myValue , lowValue , highValue , patientName , email , homeaddressline , homeaddresscity , homeaddressstate , homephone , gender ,birthdate from DiagnosticReport INNER JOIN Patient ON Patient.patientId = DiagnosticReport.patientId where STR_TO_DATE (reportDate,'%Y-%m-%d') = :date and Patient.patientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "Reports":{&#xd;      "Report":[&#xd;         {&#xd;            "reportId":"$reportId",&#xd;            "reportTitle":"$report",&#xd;            "result":"$result",&#xd;            "reportdate":"$reportdate",&#xd;            "myValue" : "$myValue",&#xd;            "lowValue" : "$lowValue",&#xd;            "highValue" : "$highValue",  &#xd;            "patient":{&#xd;               "patientId":"$patientId",&#xd;               "patientName":"$patientName",&#xd;               "email":"$email",&#xd;               "homeaddressline":"$homeaddressline",&#xd;               "homeaddresscity":"$homeaddresscity",&#xd;               "homeaddressstate":"$homeaddressstate",&#xd;               "homephone":"$homephone",&#xd;               "gender":"$gender",&#xd;               "birthdate":"$birthdate"&#xd;            }&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="date" sqlType="STRING"/>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <operation name="addDiagnosticAlertOp">
+      <call-query href="addDiagnosticAlert">
+         <with-param name="reportId" query-param="reportId"/>
+         <with-param name="patientId" query-param="patientId"/>
+         <with-param name="report" query-param="report"/>
+         <with-param name="reportDate" query-param="reportDate"/>
+         <with-param name="result" query-param="result"/>
+         <with-param name="myValue" query-param="myValue"/>
+         <with-param name="lowValue" query-param="lowValue"/>
+         <with-param name="highValue" query-param="highValue"/>
+      </call-query>
+   </operation>
+   <operation name="addPatientOP">
+      <call-query href="addPatient">
+         <with-param name="patientId" query-param="patientId"/>
+         <with-param name="patientName" query-param="patientName"/>
+         <with-param name="email" query-param="email"/>
+         <with-param name="homeaddressline" query-param="homeaddressline"/>
+         <with-param name="homeaddresscity" query-param="homeaddresscity"/>
+         <with-param name="homeaddressstate" query-param="homeaddressstate"/>
+         <with-param name="homephone" query-param="homephone"/>
+         <with-param name="gender" query-param="gender"/>
+         <with-param name="birthdate" query-param="birthdate"/>
+      </call-query>
+   </operation>
+   <operation name="allObservationReports">
+      <call-query href="allObservationReports"/>
+   </operation>
+   <operation name="allObservationReportsByPatientId">
+      <call-query href="allReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <operation name="allHBObservationReportsByPatientId">
+      <call-query href="allHBreportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <operation name="allGlucoseObservationReportsByPatientId">
+      <call-query href="allGlucoseReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <operation name="allCholesterolObservationReportsByPatientId">
+      <call-query href="allCholesterolByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <operation name="allPotassiumObservationReportsByPatientId">
+      <call-query href="allPotassiumReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <operation name="allObservationReportsByPatientIdReportDate">
+      <call-query href="allReportsByPatientIdReportDate">
+         <with-param name="date" query-param="date"/>
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <resource method="GET" path="allreports">
+      <call-query href="allObservationReports"/>
+   </resource>
+   <resource method="GET" path="reports/patient/{patientId}">
+      <call-query href="allReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="reports/bloodhemoglobin/patient/{patientId}">
+      <call-query href="allHBreportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="reports/bloodglucose/patient/{patientId}">
+      <call-query href="allGlucoseReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="reports/bloodcholesterol/patient/{patientId}">
+      <call-query href="allCholesterolByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="reports/bloodpotasium/patient/{patientId}">
+      <call-query href="allPotassiumReportsByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="reports/patient/{patientId}/{date}">
+      <call-query href="allReportsByPatientIdReportDate">
+         <with-param name="date" query-param="date"/>
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+</data>

@@ -1,0 +1,96 @@
+<data enableBatchRequests="true" enableBoxcarring="true" name="MedicationOrderDataService" transports="http https local">
+   <config enableOData="false" id="Datasource">
+      <property name="driverClassName">com.mysql.jdbc.Driver</property>
+      <property name="url">jdbc:mysql://localhost:3306/EPIC_HC_ALERT_DB</property>
+      <property name="username">root</property>
+      <property name="password">1234</property>
+   </config>
+   <query id="addMedicationOrderAlert" useConfig="Datasource">
+      <sql>insert into MedicationOrder (&#xd;    medicationOrderId,&#xd;    patientId,&#xd;    prescriberId,&#xd;    medication,&#xd;    dosageInstruction,&#xd;    frequency,&#xd;    periodUnits,&#xd;    period,&#xd;    startDate,&#xd;    endDate)&#xd;values (&#xd;    :medicationOrderId,&#xd;    :patientId,&#xd;    :prescriberId, &#xd;    :medication,&#xd;    :dosageInstruction,&#xd;    :frequency,&#xd;    :periodUnits,&#xd;    :period,&#xd;    :startDate,&#xd;    :endDate&#xd;)</sql>
+      <param name="patientId" sqlType="STRING"/>
+      <param name="medicationOrderId" sqlType="STRING"/>
+      <param name="frequency" sqlType="STRING"/>
+      <param name="periodUnits" sqlType="STRING"/>
+      <param name="period" sqlType="STRING"/>
+      <param name="startDate" sqlType="STRING"/>
+      <param name="endDate" sqlType="STRING"/>
+      <param name="medication" sqlType="STRING"/>
+      <param name="dosageInstruction" sqlType="STRING"/>
+      <param name="prescriberId" sqlType="STRING"/>
+   </query>
+   <query id="addPatient" useConfig="Datasource">
+      <sql>insert into Patient (patientId, patientName,email,homeaddressline,homeaddresscity,homeaddressstate,homephone,gender,birthdate) values (:patientId , :patientName , :email, :homeaddressline, :homeaddresscity, :homeaddressstate , :homephone, :gender, :birthdate)</sql>
+      <param name="patientId" sqlType="STRING"/>
+      <param name="patientName" sqlType="STRING"/>
+      <param name="email" sqlType="STRING"/>
+      <param name="homeaddressline" sqlType="STRING"/>
+      <param name="homeaddresscity" sqlType="STRING"/>
+      <param name="homeaddressstate" sqlType="STRING"/>
+      <param name="homephone" sqlType="STRING"/>
+      <param name="gender" sqlType="STRING"/>
+      <param name="birthdate" sqlType="STRING"/>
+   </query>
+   <query id="addPractitioner" useConfig="Datasource">
+      <sql>insert into Practitioner (prescriberId , practitionerName) values (:prescriberId , :practitionerName)</sql>
+      <param name="prescriberId" sqlType="STRING"/>
+      <param name="practitionerName" sqlType="STRING"/>
+   </query>
+   <query id="allMedicationOrders" useConfig="Datasource">
+      <sql>select Patient.patientId , Practitioner.prescriberId , medicationOrderId , medication , dosageInstruction , frequency , periodUnits , period , startDate , endDate , patientName , email,homeaddressline , homeaddresscity,homeaddressstate,homephone , gender,birthdate , practitionerName &#xd;from ((MedicationOrder INNER JOIN Patient ON Patient.patientId = MedicationOrder.patientId) Inner join Practitioner ON Practitioner.prescriberId = MedicationOrder.prescriberId)</sql>
+      <result outputType="json">{&#xd;   "patient":{&#xd;      "MedicationOrders":[&#xd;         {&#xd;            "patientId":"$patientId",&#xd;            "patientName":"$patientName",&#xd;            "email":"$email",&#xd;            "homeaddressline":"$homeaddressline",&#xd;            "homeaddresscity":"$homeaddresscity",&#xd;            "homeaddressstate":"$homeaddressstate",&#xd;            "homephone":"$homephone",&#xd;            "gender":"$gender",&#xd;            "birthdate":"$birthdate",&#xd;            "prescriberId":"$prescriberId",&#xd;            "pratitionerName":"$practitionerName",&#xd;            "medicationOrderId":"$medicationOrderId",&#xd;            "Medication":"$medication",&#xd;            "Dosageinstruction":"$dosageInstruction",&#xd;            "frequency":"$frequency",&#xd;            "periodUnits":"$periodUnits",&#xd;            "period":"$period",&#xd;            "startDate":"$startDate",&#xd;            "endDate":"$endDate"&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+   </query>
+   <query id="allMedicationOrderByPatientId" useConfig="Datasource">
+      <sql>select Patient.patientId , Practitioner.prescriberId , medicationOrderId , medication , dosageInstruction , frequency , periodUnits , period , startDate , endDate , patientName , email,homeaddressline , homeaddresscity,homeaddressstate,homephone , gender,birthdate , practitionerName &#xd;from ((MedicationOrder INNER JOIN Patient ON Patient.patientId = MedicationOrder.patientId) Inner join Practitioner ON Practitioner.prescriberId = MedicationOrder.prescriberId) where Patient.PatientId = :patientId</sql>
+      <result outputType="json">{&#xd;   "patient":{&#xd;      "MedicationOrders":[&#xd;         {&#xd;            "patientId":"$patientId",&#xd;            "patientName":"$patientName",&#xd;            "email":"$email",&#xd;            "homeaddressline":"$homeaddressline",&#xd;            "homeaddresscity":"$homeaddresscity",&#xd;            "homeaddressstate":"$homeaddressstate",&#xd;            "homephone":"$homephone",&#xd;            "gender":"$gender",&#xd;            "birthdate":"$birthdate",&#xd;            "prescriberId":"$prescriberId",&#xd;            "pratitionerName":"$practitionerName",&#xd;            "medicationOrderId":"$medicationOrderId",&#xd;            "Medication":"$medication",&#xd;            "Dosageinstruction":"$Dosageinstruction",&#xd;            "frequency":"$frequency",&#xd;            "periodUnits":"$periodUnits",&#xd;            "period":"$period",&#xd;            "startDate":"$startDate",&#xd;            "endDate":"$endDate"&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="patientId" sqlType="STRING"/>
+   </query>
+   <operation name="addMedicationOrderOp">
+      <call-query href="addMedicationOrderAlert">
+         <with-param name="patientId" query-param="patientId"/>
+         <with-param name="medicationOrderId" query-param="medicationOrderId"/>
+         <with-param name="frequency" query-param="frequency"/>
+         <with-param name="periodUnits" query-param="periodUnits"/>
+         <with-param name="period" query-param="period"/>
+         <with-param name="startDate" query-param="startDate"/>
+         <with-param name="endDate" query-param="endDate"/>
+         <with-param name="medication" query-param="medication"/>
+         <with-param name="dosageInstruction" query-param="dosageInstruction"/>
+         <with-param name="prescriberId" query-param="prescriberId"/>
+      </call-query>
+   </operation>
+   <operation name="addPatientOp">
+      <call-query href="addPatient">
+         <with-param name="patientId" query-param="patientId"/>
+         <with-param name="patientName" query-param="patientName"/>
+         <with-param name="email" query-param="email"/>
+         <with-param name="homeaddressline" query-param="homeaddressline"/>
+         <with-param name="homeaddresscity" query-param="homeaddresscity"/>
+         <with-param name="homeaddressstate" query-param="homeaddressstate"/>
+         <with-param name="homephone" query-param="homephone"/>
+         <with-param name="gender" query-param="gender"/>
+         <with-param name="birthdate" query-param="birthdate"/>
+      </call-query>
+   </operation>
+   <operation name="addPractitionerOP">
+      <call-query href="addPractitioner">
+         <with-param name="prescriberId" query-param="prescriberId"/>
+         <with-param name="practitionerName" query-param="practitionerName"/>
+      </call-query>
+   </operation>
+   <operation name="allMedicationOrdersOP">
+      <call-query href="allMedicationOrders"/>
+   </operation>
+   <operation name="allMedicationOrderByPatientIdOP">
+      <call-query href="allMedicationOrderByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </operation>
+   <resource method="GET" path="allmedicationorders">
+      <call-query href="allMedicationOrders"/>
+   </resource>
+   <resource method="GET" path="medicationOrders/patient/{patientId}">
+      <call-query href="allMedicationOrderByPatientId">
+         <with-param name="patientId" query-param="patientId"/>
+      </call-query>
+   </resource>
+</data>
