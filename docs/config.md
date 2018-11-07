@@ -66,6 +66,8 @@ Add below UUIDs  in the <SP_HOME>/conf/dashboard/deployment.yaml file under wso2
 * analyzing-medication-orders/sending-active-medication-order-alerts  
 
 8 . Deploy below xml files to APIM
+
+These can be find under APIM Artefacts directory
  * admin--EpicHealthcareAlert_v1.0.0.xml
 > <APIM_HOME>/repository/deployment/server/synapse-configs/default/api
 
