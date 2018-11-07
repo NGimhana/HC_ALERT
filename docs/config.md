@@ -115,6 +115,10 @@ Can Use either Dashboard or simple SQL insert query.
 Then Select a Sequence in EI console and Edit it. 
 Set  Count to (-1) for execute infinitely.  Set Interval also.
 
+![EI_Tasks_Screenshot](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Guideline%20screenshots/scheduledTasks.png)
+
+![EI_Interval_Screenshot](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Guideline%20screenshots/scheduledTaskInterval.png)
+
 4 . Start SP Worker and Dashboard 
 > <SP_HOME>sh bin/worker.sh  
 > <SP_HOME>sh bin/dashboard.sh

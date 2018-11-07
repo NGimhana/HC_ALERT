@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint xmlns="http://ws.apache.org/ns/synapse"
+          name="EpicHealthcareAlert--v1.0.0_APIsandboxEndpoint">
+    <http uri-template="http://localhost:8283/services/">
+        <timeout>
+            <duration>60000</duration>
+            <responseAction>fault</responseAction>
+        </timeout>
+    </http>
+    <property name="ENDPOINT_ADDRESS" value="http://localhost:8283/services/"/>
+</endpoint>
