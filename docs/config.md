@@ -1,6 +1,6 @@
-##Installation Guide
+## Installation Guide
 
-####Prerequisites
+#### Prerequisites
  
 * WSO2 EI 6.3.0
 * WSO2 APIM 2.5.0
@@ -8,21 +8,21 @@
 * Apache Kafka Configuration - Recommends: Kafka_2.11-2.0.0
 * MySQL configuration
 
-####Initial Setup
+#### Initial Setup
 
 1. Follow Apache Kafka Quick start Guide for Kafka configuration. https://kafka.apache.org/quickstart
 
 2. Create Below Stream topics. 
 >bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic  <Topic Name>
 
-#####Input Streams
+##### Input Streams
 * hemoglobin-epic
 * Medication-order-epic
 * cholesterol-epic
 * glucose-epic
 * potasium-in-blood-epic
 
-#####Output  Streams
+##### Output  Streams
 * bloodhemoglobin-epic-alert
 * medication-order-epic-alert
 * bloodglucose-epic-alert
@@ -84,7 +84,7 @@ Use provided AlertDb.sql under Database SQL directory
 * DB : EPIC_HC_ALERT_DB
 * Tables : Patient , SubscribedPatient ,DiagnosticReport , MedicationOrder,Practitioner
 
-####Testing
+#### Testing
 
 Note : Current Implementation only supports EPIC systems only.
 
