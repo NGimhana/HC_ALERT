@@ -1,6 +1,6 @@
-##Health-care Notification Platform
+## Health-care Notification Platform
 
-#####Used Products : WSO2 EI 6.3.0 , WSO2 SP 4.2.0 , WSO2 APIM 2.5.0
+##### Used Products : WSO2 EI 6.3.0 , WSO2 SP 4.2.0 , WSO2 APIM 2.5.0
 
 Note: Current Implementation only supports  EPIC systems (FHIR-DSTU2).
 
