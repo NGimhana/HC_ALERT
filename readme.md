@@ -27,7 +27,7 @@ Find Below table for the Sequences and what they are fetching.
 |2345-7 | Blood Glucose | EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE|
 |2093-3|Blood Cholesterol| EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE|
 
-#####EPIC APIS Used 
+##### EPIC APIS Used 
 Use WSO2 ESB EPIC Connector for execute EPIC APIs. Below synapse configuration sample shows Epic Observation operation
 ```
 <Epic.searchObservation>
@@ -44,7 +44,7 @@ Use WSO2 ESB EPIC Connector for execute EPIC APIs. Below synapse configuration s
 
 In addition EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE for fetching Medication Orders.
 
-####Database Schema
+#### Database Schema
 
 ![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/Architectural%20Diagrams/Entity%20Relationship%20Diagram%20-%20New%20Page.png)
    
@@ -66,7 +66,7 @@ Only Valid Responses are pushed to Kafka Streams.
 
 **Step 3:  Send the validated responses to Kafka topics.**
 
-#####Input Streams
+##### Input Streams
 
 * hemoglobin-epic =>  Stream for blood Hemoglobin related Data
 * Medication-order-epic => Stream for Active Medication Order related Data
@@ -80,7 +80,7 @@ Only Valid Responses are pushed to Kafka Streams.
 
 Create and Deploy Business Rules using below Templates.
 
-#####SP Templates Involve
+##### SP Templates Involve
 
 
 | Template Name|Task|
@@ -93,7 +93,7 @@ Create and Deploy Business Rules using below Templates.
 
 **Step 5 : Publish processed alerts to Kafka Topics.**
 
-#####Output Kafka Streams
+##### Output Kafka Streams
 
 * bloodhemoglobin-epic-alert   =>  Stream for blood Hemoglobin related alerts
 * medication-order-epic-alert  => Stream for Active Medication Order related alerts
@@ -123,9 +123,9 @@ Alert data are exposed as RESTful APIs. These are not recommended to be used as 
 **Step 8 : EPIC Healthcare Alert APIs are Exposed via WSO2 APIM**
 3rd Party Consumers can use these Alerts for developing their own Healthcare Alert systems.
 
-####APIs Providing
+#### APIs Providing
 
-#####Diagnostic Alert Related APIs (Potensial consumers = Patients / Practitioners )
+##### Diagnostic Alert Related APIs (Potensial consumers = Patients / Practitioners )
 
 * [GET]/DiagnosticAlertDataService/allreports
     * Retrieves All the diagnostic alerts
@@ -142,14 +142,14 @@ Alert data are exposed as RESTful APIs. These are not recommended to be used as 
 * [GET]/DiagnosticAlertDataService/reports/patient/{patientId}/{date}
     * Retrieves all the diagnostic reports corresponding to specific patient with in a date
 
-#####Medication Order Related APIs (Potensial consumers = Pharmacists / Practitioners )
+##### Medication Order Related APIs (Potensial consumers = Pharmacists / Practitioners )
 
 * [GET]/MedicationOrderDataService/allmedicationorders
     * Retrieves all the active medication orders
 * [GET]/MedicationOrderDataService/medicationOrders/patient/{patientId}
     * Retrieve all the Medication Reports corresponding to a specific patient given by patientId
 
-#####Accessing Subscribed Patients (Potensial consumers = Practitioners / Hospital admin)
+##### Accessing Subscribed Patients (Potensial consumers = Practitioners / Hospital admin)
 
 * [POST]/RDBMSDataService/patient
     * Adding Patients who wants to be monitored to DB
@@ -159,4 +159,4 @@ Alert data are exposed as RESTful APIs. These are not recommended to be used as 
     * Retrieves all Monitoring Epic Patients    
     
     
-Click [Here]() for the Installation Guide    
+Click ![here](https://github.com/NGimhana/HC_ALERT/blob/master/docs/config.md) for the Installation Guide    
