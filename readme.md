@@ -72,7 +72,7 @@ Only Valid Responses are pushed to Kafka Streams.
 * Medication-order-epic => Stream for Active Medication Order related Data
 * cholesterol-epic =>  Stream for blood cholesterol related Data
 * glucose-epic  => Stream for blood Glucose related Data
-* bloodpotasium-epic-alert => Stream for blood potassium related Data
+* potasium-in-blood-epic => Stream for blood potassium related Data
 
 
 
