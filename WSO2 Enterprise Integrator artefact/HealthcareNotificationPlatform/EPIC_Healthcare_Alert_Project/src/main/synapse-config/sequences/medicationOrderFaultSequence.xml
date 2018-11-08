@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="medicationOrderFaultSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full">
+        <property name="MESSAGE" value="Executing default 'fault' sequence"/>
+        <property expression="get-property('ERROR_CODE')" name="ERROR_CODE" xmlns:ns="http://org.apache.synapse/xsd"/>
+        <property expression="get-property('ERROR_MESSAGE')" name="ERROR_MESSAGE" xmlns:ns="http://org.apache.synapse/xsd"/>
+    </log>
+    <drop/>
+</sequence>

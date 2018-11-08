@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="RDBMSDataService" groupId="com.wso2.healthcare.solutions.dataservice" version="1.0.0" type="service/dataservice" serverRole="DataServicesServer">
+        <file>dataservice/RDBMSDataService.dbs</file>
+    </artifact>
+    <artifact name="MedicationOrderDataService" groupId="com.wso2.healthcare.solutions.dataservice" version="1.0.0" type="service/dataservice" serverRole="DataServicesServer">
+        <file>dataservice/MedicationOrderDataService.dbs</file>
+    </artifact>
+    <artifact name="DiagnosticAlertDataService" groupId="com.wso2.healthcare.solutions.dataservice" version="1.0.0" type="service/dataservice" serverRole="DataServicesServer">
+        <file>dataservice/DiagnosticAlertDataService.dbs</file>
+    </artifact>
+</artifacts>

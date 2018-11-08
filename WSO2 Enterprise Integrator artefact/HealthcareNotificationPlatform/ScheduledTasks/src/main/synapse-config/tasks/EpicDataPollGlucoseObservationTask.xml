@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task class="org.apache.synapse.startup.tasks.MessageInjector" group="synapse.simple.quartz" name="EpicDataPollGlucoseObservationTask" xmlns="http://ws.apache.org/ns/synapse">
+    <trigger count="0" interval="10"/>
+    <property name="injectTo" value="sequence" xmlns:task="http://www.wso2.org/products/wso2commons/tasks"/>
+    <property name="message" xmlns:task="http://www.wso2.org/products/wso2commons/tasks">
+        <m0:getQuote xmlns:m0="http://services.samples">
+            <m0:request>
+                <m0:symbol>IBM</m0:symbol>
+            </m0:request>
+        </m0:getQuote>
+    </property>
+    <property name="sequenceName" value="EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE" xmlns:task="http://www.wso2.org/products/wso2commons/tasks"/>
+</task>

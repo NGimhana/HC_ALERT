@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property name="Request Came To Sequence" value="Request Send"/>
+    </log>
+    <header name="Accept" scope="transport" value="application/json"/>
+    <call>
+        <endpoint>
+            <http method="get" uri-template="get-property('EpicSelectedPatientsURL')"/>
+        </endpoint>
+    </call>
+    <iterate expression="//Patients/Patient">
+        <target>
+            <sequence>
+                <property description="ID" expression="//patientId" name="id" scope="default" type="STRING"/>
+                <!-- EPIC CONNECTOR INITIALIZATION -->
+                <sequence key="EPIC_CONNECTOR_INITIALIZATION"/>
+                <Epic.searchObservation>
+                    <patient>{$ctx:id}</patient>
+                    <code>2823-3</code>
+                </Epic.searchObservation>
+                <property description="Error Code" expression="json-eval($.entry[0].resource.issue[0].details.coding[0].code)" name="uri.var.issue" scope="default" type="STRING"/>
+                <log level="custom">
+                    <property expression="get-property('uri.var.issue')" name="Issue"/>
+                </log>
+                <filter description="Compares EPIC error code with Response" regex="4101" source="get-property('uri.var.issue')">
+                    <then>
+                        <log level="custom">
+                            <property name="EPIC_ERROR_CODE" value="4101"/>
+                        </log>
+                        <drop/>
+                    </then>
+                    <else>
+                        <property name="updatedReportCount" scope="default" type="DOUBLE" value="1.0"/>
+                        <!-- Use EPIC_REPORT_FILTER Sequence for Filter According to Date -->
+                        <filter xpath="$ctx:updatedReportCount >  0 ">
+                            <then>
+                                <log level="custom">
+                                    <property expression="get-property('updatedReportCount')" name="Updated Report Count"/>
+                                </log>
+                                <log level="custom">
+                                    <property expression="json-eval($.)" name="Response"/>
+                                </log>
+                                <kafkaTransport.init>
+                                    <bootstrapServers>localhost:9092</bootstrapServers>
+                                    <keySerializerClass>org.apache.kafka.common.serialization.StringSerializer</keySerializerClass>
+                                    <valueSerializerClass>org.apache.kafka.common.serialization.StringSerializer</valueSerializerClass>
+                                </kafkaTransport.init>
+                                <kafkaTransport.publishMessages>
+                                    <topic>potasium-in-blood-epic</topic>
+                                    <message>HelloKakfa</message>
+                                    <partitionNo>0</partitionNo>
+                                </kafkaTransport.publishMessages>
+                            </then>
+                            <else>
+                                <log level="custom">
+                                    <property expression="get-property('updatedReportCount')" name="Updated Report Count"/>
+                                </log>
+                            </else>
+                        </filter>
+                    </else>
+                </filter>
+            </sequence>
+        </target>
+    </iterate>
+    <respond/>
+</sequence>

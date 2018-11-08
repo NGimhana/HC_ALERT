@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="EPIC_REPORT_FILTER" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_REPORT_FILTER.xml</file>
+    </artifact>
+    <artifact name="EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="EPIC_CONNECTOR_INITIALIZATION" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_CONNECTOR_INITIALIZATION.xml</file>
+    </artifact>
+    <artifact name="EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml.xml</file>
+    </artifact>
+    <artifact name="EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml.xml</file>
+    </artifact>
+    <artifact name="EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE.xml</file>
+    </artifact>
+    <artifact name="observationSequence" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/observationSequence.xml</file>
+    </artifact>
+    <artifact name="observationFaultSequence" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/observationFaultSequence.xml</file>
+    </artifact>
+    <artifact name="medicationOrderSequence" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/medicationOrderSequence.xml</file>
+    </artifact>
+    <artifact name="medicationOrderFaultSequence" groupId="com.wso2.healthcare.solutions.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/medicationOrderFaultSequence.xml</file>
+    </artifact>
+    <artifact name="Medication_Order_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/Medication_Order_EPIC_Kafka_Inbound.xml</file>
+    </artifact>
+    <artifact name="Blood_Potassium_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/Blood_Potassium_EPIC_Kafka_Inbound.xml</file>
+    </artifact>
+    <artifact name="Blood_Hemoglobin_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/Blood_Hemoglobin_EPIC_Kafka_Inbound.xml</file>
+    </artifact>
+    <artifact name="Blood_Glucose_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/Blood_Glucose_EPIC_Kafka_Inbound.xml</file>
+    </artifact>
+    <artifact name="blood_Cholesterol_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/blood_Cholesterol_EPIC_Kafka_Inbound.xml</file>
+    </artifact>
+    <artifact name="EpicBaseURL" groupId="com.wso2.healthcare.solutions.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/EpicBaseURL.xml</file>
+    </artifact>
+    <artifact name="EpicSelectedPatientsURL" groupId="com.wso2.healthcare.solutions.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/EpicSelectedPatientsURL.xml</file>
+    </artifact>
+</artifacts>
