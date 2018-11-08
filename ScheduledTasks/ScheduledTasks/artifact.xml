@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artifacts>
+    <artifact name="EpicDataPollPotassiumObservationTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/EpicDataPollPotassiumObservationTask.xml</file>
+    </artifact>
+    <artifact name="EpicDataPollMedicationOrderTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/EpicDataPollMedicationOrderTask.xml</file>
+    </artifact>
+    <artifact name="EpicDataPollHbObservationTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/EpicDataPollHbObservationTask.xml</file>
+    </artifact>
+    <artifact name="EpicDataPollGlucoseObservationTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/EpicDataPollGlucoseObservationTask.xml</file>
+    </artifact>
+    <artifact name="EpicDataPollCholesterolTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/EpicDataPollCholesterolTask.xml</file>
+    </artifact>
+    <artifact name="CernerDataPollHbObservationTask" groupId="com.example.ScheduledTasks.task" version="1.0.0"
+              type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/CernerDataPollHbObservationTask.xml</file>
+    </artifact>
+</artifacts>

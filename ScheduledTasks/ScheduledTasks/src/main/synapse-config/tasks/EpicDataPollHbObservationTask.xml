@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <task class="org.apache.synapse.startup.tasks.MessageInjector" group="synapse.simple.quartz"
-      name="EpicDataPollPotassiumObservationTask" xmlns="http://ws.apache.org/ns/synapse">
+      name="EpicDataPollHbObservationTask" xmlns="http://ws.apache.org/ns/synapse">
     <trigger count="0" interval="10"/>
-    <property name="injectTo" value="sequence"/>
+    <property name="sequenceName" value="EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE"/>
     <property name="message">
         <m0:getQuote xmlns:m0="http://services.samples">
             <m0:request>
@@ -10,5 +10,5 @@
             </m0:request>
         </m0:getQuote>
     </property>
-    <property name="sequenceName" value="EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE"/>
+    <property name="injectTo" value="sequence"/>
 </task>
