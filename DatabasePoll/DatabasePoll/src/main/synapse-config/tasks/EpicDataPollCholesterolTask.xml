@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task class="org.apache.synapse.startup.tasks.MessageInjector" group="synapse.simple.quartz"
+      name="EpicDataPollCholesterolTask" xmlns="http://ws.apache.org/ns/synapse">
+    <trigger count="0" interval="10"/>
+    <property name="injectTo" value="sequence"/>
+    <property name="sequenceName" value="EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE"/>
+    <property name="message">
+        <m0:getQuote xmlns:m0="http://services.samples">
+            <m0:request>
+                <m0:symbol>IBM</m0:symbol>
+            </m0:request>
+        </m0:getQuote>
+    </property>
+</task>
