@@ -6,7 +6,7 @@ Note: Current Implementation only supports  EPIC systems (FHIR-DSTU2).
 
 This is a Simple Implementation of Realtime Healthcare-Notification Platform. Find below diagram to understand the flow of this solution.
 
-![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/Architectural%20Diagrams/Blank%20Diagram.png)
+![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Architectural%20Diagrams/Blank%20Diagram.png)
 
 **Step 1 : WSO2 EI fetches data from EHR systems(EPIC Sandbox in this case).** 
 
@@ -46,7 +46,7 @@ In addition EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE for fetching Medication Ord
 
 #### Database Schema
 
-![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/Architectural%20Diagrams/Entity%20Relationship%20Diagram%20-%20New%20Page.png)
+![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Architectural%20Diagrams/Entity%20Relationship%20Diagram%20-%20New%20Page.png)
    
 
 **Step 2 : WSO2 EI validates retrieved responses.**
