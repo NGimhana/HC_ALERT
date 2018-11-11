@@ -32,6 +32,184 @@
     <header name="Accept" scope="transport" value="application/json"/>
     <call/>
     <property description="Practitioner Name" expression="json-eval($.name.text)" name="uri.var.pratitionerName" scope="default" type="STRING"/>
+    <!-- Checks Whether Patient exists in Patient Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:allPatientsByPatientIdOp xmlns:p="http://ws.wso2.org/dataservice/selectPatientByPatientId">
+                <xs:patientId xmlns:xs="http://ws.wso2.org/dataservice/selectPatientByPatientId">$1</xs:patientId>
+            </p:allPatientsByPatientIdOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+        </args>
+    </payloadFactory>
+    <call>
+        <endpoint key="conf:repository/esb/registry/SelectPatientByPatientIdEP.xml"/>
+    </call>
+    <property description="Patient Id from Response" expression="json-eval($.Patients.Patient.patientId)"
+              name="uri.var.patientid123" scope="default" type="STRING"/>
+    <!-- Checks Whether MedicationOrder exists in MedicationOrder Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:selectMedicationOrderByOrderIdOp xmlns:p="http://ws.wso2.org/dataservice/selectMedicationOrderByOrderId">
+                <xs:medicationOrderId xmlns:xs="http://ws.wso2.org/dataservice/selectMedicationOrderByOrderId">$1
+                </xs:medicationOrderId>
+            </p:selectMedicationOrderByOrderIdOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.medicationOrderId')"/>
+        </args>
+    </payloadFactory>
+    <call>
+        <endpoint key="conf:repository/esb/registry/SelectMedicationOrderByOrderIdEP.xml"/>
+    </call>
+    <property description="MedicationOrder Id from Response"
+              expression="json-eval($.MedicationOrders.MedicationOrder.medicationOrderId)" name="uri.var.reportId123"
+              scope="default" type="STRING"/>
+    <!-- Checks Whether Practitioner exists in Practitioner Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:selectPractitionerByPractitionerIdOp
+                    xmlns:p="http://ws.wso2.org/dataservice/selectPrescriberByPrescriberId">
+                <xs:prescriberId xmlns:xs="http://ws.wso2.org/dataservice/selectPrescriberByPrescriberId">$1
+                </xs:prescriberId>
+            </p:selectPractitionerByPractitionerIdOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.prescriberId')"/>
+        </args>
+    </payloadFactory>
+    <call>
+        <endpoint key="conf:repository/esb/registry/SelectPractitionerByPractitionerIdEP.xml"/>
+    </call>
+    <property description="Patient Id from Response" expression="json-eval($.Practitioners.Practitioner.prescriberId)"
+              name="uri.var.prescriberId123" scope="default" type="STRING"/>
+    <!-- Add Patient to Patient Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addPatientOP xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:patientName>$2</p:patientName>
+                <p:email>$3</p:email>
+                <p:homeaddressline>$4</p:homeaddressline>
+                <p:homeaddresscity>$5</p:homeaddresscity>
+                <p:homeaddressstate>$6</p:homeaddressstate>
+                <p:homephone>$7</p:homephone>
+                <p:gender>$8</p:gender>
+                <p:birthdate>$9</p:birthdate>
+            </p:addPatientOP>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientName')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.email')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.patientAddress')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressCity')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.addressState')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.homePhone')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.gender')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.birthdate')"/>
+        </args>
+    </payloadFactory>
+    <filter xpath="get-property('uri.var.patientid123') != '' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Patient Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Patient Written"/>
+            </log>
+            <call>
+                <endpoint key="conf:repository/esb/registry/AddPatientEP.xml"/>
+            </call>
+        </else>
+    </filter>
+    <!-- Add Practitioner to Practitioner Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addPractitionerOP xmlns:p="http://ws.wso2.org/dataservice">
+                <p:prescriberId>$1</p:prescriberId>
+                <p:practitionerName>$2</p:practitionerName>
+            </p:addPractitionerOP>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.prescriberId')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.pratitionerName')"/>
+        </args>
+    </payloadFactory>
+    <log level="custom">
+        <property expression="get-property('uri.var.prescriberId123')" name="LogDBPrescriber"/>
+    </log>
+    <filter xpath="get-property('uri.var.prescriberId123') != '' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Prescriber Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Prescriber Written"/>
+            </log>
+            <call>
+                <endpoint key="conf:repository/esb/registry/AddPractitionerEP.xml"/>
+            </call>
+        </else>
+    </filter>
+    <!-- Add MedicationOrder to MedicationOrder Table -->
+    <payloadFactory media-type="xml">
+        <format>
+            <p:addMedicationOrderOp xmlns:p="http://ws.wso2.org/dataservice">
+                <p:patientId>$1</p:patientId>
+                <p:medicationOrderId>$2</p:medicationOrderId>
+                <p:frequency>$3</p:frequency>
+                <p:periodUnits>$4</p:periodUnits>
+                <p:period>$5</p:period>
+                <p:startDate>$6</p:startDate>
+                <p:endDate>$7</p:endDate>
+                <p:medication>$8</p:medication>
+                <p:dosageInstruction>$9</p:dosageInstruction>
+                <p:prescriberId>$10</p:prescriberId>
+            </p:addMedicationOrderOp>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.patientid')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.medicationOrderId')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.frequency')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.periodUnits')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.period')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.startDate')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.endDate')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.Medication')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.Dosageinstruction')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.prescriberId')"/>
+        </args>
+    </payloadFactory>
+    <log level="custom">
+        <property expression="get-property('uri.var.reportId123')" name="LogDB"/>
+    </log>
+    <filter xpath="get-property('uri.var.reportId123') != 'null' ">
+        <then>
+            <log level="custom">
+                <property name="Error Log" value="Error Alert Already in DB"/>
+            </log>
+            <drop/>
+        </then>
+        <else>
+            <log level="custom">
+                <property name="Success Log" value="condition Passed Alert Written"/>
+            </log>
+            <call>
+                <endpoint key="conf:repository/esb/registry/AddMedicationOrderEP.xml"/>
+            </call>
+        </else>
+    </filter>
+    <!-- 
+    
+    
     <dblookup>
         <connection>
             <pool>
@@ -172,4 +350,6 @@
         </else>
     </filter>
     <respond/>
+    
+    -->
 </sequence>

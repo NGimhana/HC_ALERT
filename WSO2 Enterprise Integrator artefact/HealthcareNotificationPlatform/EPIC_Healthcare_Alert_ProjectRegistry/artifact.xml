@@ -8,10 +8,66 @@
             <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
         </item>
     </artifact>
-    <artifact name="EpicBaseURLEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+    <artifact name="AddDiagnosticReportEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
               type="registry/resource" serverRole="EnterpriseServiceBus">
         <item>
-            <file>EpicBaseURLEP.xml</file>
+            <file>AddDiagnosticReportEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="AddPatientEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>AddPatientEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="SelectPatientByPatientIdEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>SelectPatientByPatientIdEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="SelectReportByReportIdEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>SelectReportByReportIdEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="SelectMedicationOrderByOrderIdEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>SelectMedicationOrderByOrderIdEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="SelectPractitionerByPractitionerIdEP" groupId="com.wso2.healthcare.solutions.resource"
+              version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>SelectPractitionerByPractitionerIdEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="AddPractitionerEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>AddPractitionerEP.xml</file>
+            <path>/_system/config/repository/esb/registry</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="AddMedicationOrderEP" groupId="com.wso2.healthcare.solutions.resource" version="1.0.0"
+              type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>AddMedicationOrderEP.xml</file>
             <path>/_system/config/repository/esb/registry</path>
             <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
         </item>

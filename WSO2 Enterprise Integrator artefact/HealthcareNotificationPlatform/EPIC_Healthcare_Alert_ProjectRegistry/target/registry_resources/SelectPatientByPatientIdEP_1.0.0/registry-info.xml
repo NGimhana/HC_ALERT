@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <item>
-        <file>EpicBaseURLEP.xml</file>
+        <file>SelectPatientByPatientIdEP.xml</file>
         <path>/_system/config/repository/esb/registry</path>
         <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
     </item>

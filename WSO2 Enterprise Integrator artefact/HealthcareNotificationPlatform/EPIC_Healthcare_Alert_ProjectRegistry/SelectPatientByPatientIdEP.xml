@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="SelectPatientByPatientIdEP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="post"
+          uri-template="http://localhost:8283/services/DiagnosticAlertDataService/allPatientsByPatientIdOp"/>
+</endpoint>
