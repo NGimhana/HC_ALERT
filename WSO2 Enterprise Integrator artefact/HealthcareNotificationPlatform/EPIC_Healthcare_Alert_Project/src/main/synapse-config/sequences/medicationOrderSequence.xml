@@ -47,7 +47,7 @@
         <endpoint key="conf:repository/esb/registry/SelectPatientByPatientIdEP.xml"/>
     </call>
     <property description="Patient Id from Response" expression="json-eval($.Patients.Patient.patientId)"
-              name="uri.var.patientid123" scope="default" type="STRING"/>
+              name="uri.var.patientidDB" scope="default" type="STRING"/>
     <!-- Checks Whether MedicationOrder exists in MedicationOrder Table -->
     <payloadFactory media-type="xml">
         <format>
@@ -64,7 +64,7 @@
         <endpoint key="conf:repository/esb/registry/SelectMedicationOrderByOrderIdEP.xml"/>
     </call>
     <property description="MedicationOrder Id from Response"
-              expression="json-eval($.MedicationOrders.MedicationOrder.medicationOrderId)" name="uri.var.reportId123"
+              expression="json-eval($.MedicationOrders.MedicationOrder.medicationOrderId)" name="uri.var.reportIdDB"
               scope="default" type="STRING"/>
     <!-- Checks Whether Practitioner exists in Practitioner Table -->
     <payloadFactory media-type="xml">
@@ -83,7 +83,7 @@
         <endpoint key="conf:repository/esb/registry/SelectPractitionerByPractitionerIdEP.xml"/>
     </call>
     <property description="Patient Id from Response" expression="json-eval($.Practitioners.Practitioner.prescriberId)"
-              name="uri.var.prescriberId123" scope="default" type="STRING"/>
+              name="uri.var.prescriberIdDB" scope="default" type="STRING"/>
     <!-- Add Patient to Patient Table -->
     <payloadFactory media-type="xml">
         <format>
@@ -111,7 +111,7 @@
             <arg evaluator="xml" expression="get-property('uri.var.birthdate')"/>
         </args>
     </payloadFactory>
-    <filter xpath="get-property('uri.var.patientid123') != '' ">
+    <filter xpath="get-property('uri.var.patientidDB') != '' ">
         <then>
             <log level="custom">
                 <property name="Error Log" value="Error Patient Already in DB"/>
@@ -141,9 +141,9 @@
         </args>
     </payloadFactory>
     <log level="custom">
-        <property expression="get-property('uri.var.prescriberId123')" name="LogDBPrescriber"/>
+        <property expression="get-property('uri.var.prescriberIdDB')" name="LogDBPrescriber"/>
     </log>
-    <filter xpath="get-property('uri.var.prescriberId123') != '' ">
+    <filter xpath="get-property('uri.var.prescriberIdDB') != '' ">
         <then>
             <log level="custom">
                 <property name="Error Log" value="Error Prescriber Already in DB"/>
@@ -189,9 +189,9 @@
         </args>
     </payloadFactory>
     <log level="custom">
-        <property expression="get-property('uri.var.reportId123')" name="LogDB"/>
+        <property expression="get-property('uri.var.reportIdDB')" name="LogDB"/>
     </log>
-    <filter xpath="get-property('uri.var.reportId123') != 'null' ">
+    <filter xpath="get-property('uri.var.reportIdDB') != 'null' ">
         <then>
             <log level="custom">
                 <property name="Error Log" value="Error Alert Already in DB"/>

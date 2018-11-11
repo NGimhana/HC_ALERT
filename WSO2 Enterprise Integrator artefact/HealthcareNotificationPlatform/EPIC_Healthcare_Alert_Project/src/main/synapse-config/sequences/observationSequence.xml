@@ -44,7 +44,7 @@
         <endpoint key="conf:repository/esb/registry/SelectPatientByPatientIdEP.xml"/>
     </call>
     <property description="Patient Id from Response" expression="json-eval($.Patients.Patient.patientId)"
-              name="uri.var.patientid123" scope="default" type="STRING"/>
+              name="uri.var.patientidDB" scope="default" type="STRING"/>
     <!-- Checks whether Report exists in DiagnosticReport Table -->
     <payloadFactory media-type="xml">
         <format>
@@ -60,12 +60,12 @@
         <endpoint key="conf:repository/esb/registry/SelectReportByReportIdEP.xml"/>
     </call>
     <property description="Report Id from Response" expression="json-eval($.Reports.Report.reportId)"
-              name="uri.var.reportId123" scope="default" type="STRING"/>
+              name="uri.var.reportIdDB" scope="default" type="STRING"/>
     <log level="custom">
-        <property expression="get-property('uri.var.reportId123')" name="LogDBReport"/>
+        <property expression="get-property('uri.var.reportIdDB')" name="LogDBReport"/>
     </log>
     <log level="custom">
-        <property expression="get-property('uri.var.patientidd123')" name="LogDBPatient"/>
+        <property expression="get-property('uri.var.patientidDB')" name="LogDBPatient"/>
     </log>
     <!-- Add Patient to Patient Table -->
     <payloadFactory media-type="xml">
@@ -94,7 +94,7 @@
             <arg evaluator="xml" expression="get-property('uri.var.birthdate')"/>
         </args>
     </payloadFactory>
-    <filter xpath="get-property('uri.var.patientid123') != '' ">
+    <filter xpath="get-property('uri.var.patientidDB') != '' ">
         <then>
             <log level="custom">
                 <property name="Error Log" value="Error Patient Already in DB"/>
@@ -135,7 +135,7 @@
             <arg evaluator="xml" expression="get-property('uri.var.reportdate')"/>
         </args>
     </payloadFactory>
-    <filter xpath="get-property('uri.var.reportId123') != '' ">
+    <filter xpath="get-property('uri.var.reportIdDB') != '' ">
         <then>
             <log level="custom">
                 <property name="Error Log" value="Error Alert Already in DB"/>
