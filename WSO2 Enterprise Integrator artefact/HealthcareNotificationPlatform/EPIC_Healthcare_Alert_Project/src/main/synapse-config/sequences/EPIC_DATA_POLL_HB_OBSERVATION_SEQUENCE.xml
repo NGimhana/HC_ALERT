@@ -5,9 +5,7 @@
     </log>
     <header name="Accept" scope="transport" value="application/json"/>
     <call>
-        <endpoint>
-            <http method="get" uri-template="get-property('EpicSelectedPatientsURL')"/>
-        </endpoint>
+        <endpoint key="conf:repository/esb/registry/SelectedEpicPatientsEP.xml"/>
     </call>
     <iterate expression="//Patients/Patient">
         <target>

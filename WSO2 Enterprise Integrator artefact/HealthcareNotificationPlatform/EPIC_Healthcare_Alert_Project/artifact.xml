@@ -47,10 +47,4 @@
     <artifact name="blood_Cholesterol_EPIC_Kafka_Inbound" groupId="com.wso2.healthcare.solutions.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
         <file>src/main/synapse-config/inbound-endpoints/blood_Cholesterol_EPIC_Kafka_Inbound.xml</file>
     </artifact>
-    <artifact name="EpicBaseURL" groupId="com.wso2.healthcare.solutions.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
-        <file>src/main/synapse-config/local-entries/EpicBaseURL.xml</file>
-    </artifact>
-    <artifact name="EpicSelectedPatientsURL" groupId="com.wso2.healthcare.solutions.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
-        <file>src/main/synapse-config/local-entries/EpicSelectedPatientsURL.xml</file>
-    </artifact>
 </artifacts>
