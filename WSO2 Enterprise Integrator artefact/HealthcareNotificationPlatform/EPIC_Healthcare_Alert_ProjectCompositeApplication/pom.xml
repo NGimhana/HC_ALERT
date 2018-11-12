@@ -61,12 +61,14 @@
       </com.wso2.healthcare.solutions.task_._EpicDataPollMedicationOrderTask>
       <com.wso2.healthcare.solutions.inbound-endpoint_._Medication_Order_EPIC_Kafka_Inbound>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.inbound-endpoint_._Medication_Order_EPIC_Kafka_Inbound>
+      <com.wso2.healthcare.solutions.lib_._epic-connector>capp/EnterpriseServiceBus
+      </com.wso2.healthcare.solutions.lib_._epic-connector>
       <com.wso2.healthcare.solutions.resource_._AddPatientEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._AddPatientEP>
     <com.wso2.healthcare.solutions.task_._EpicDataPollCholesterolTask>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.task_._EpicDataPollCholesterolTask>
+    <com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>
       <com.wso2.healthcare.solutions.resource_._SelectedEpicPatientsEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._SelectedEpicPatientsEP>
-    <com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>
       <com.wso2.healthcare.solutions.resource_._SelectMedicationOrderByOrderIdEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._SelectMedicationOrderByOrderIdEP>
       <com.wso2.healthcare.solutions.sequence_._EPIC_CONNECTOR_INITIALIZATION>capp/EnterpriseServiceBus
@@ -129,24 +131,6 @@
           <type>xml</type>
       </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.lib</groupId>
-          <artifactId>Epic-connector</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.lib</groupId>
-          <artifactId>cerner-connector</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.lib</groupId>
-          <artifactId>kafkaTransport-connector</artifactId>
-          <version>2.0.5</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
           <groupId>com.wso2.healthcare.solutions.resource</groupId>
           <artifactId>AddDiagnosticReportEP</artifactId>
           <version>1.0.0</version>
@@ -192,6 +176,24 @@
           <groupId>com.wso2.healthcare.solutions.resource</groupId>
           <artifactId>SelectedEpicPatientsEP</artifactId>
           <version>1.0.0</version>
+          <type>zip</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.resource</groupId>
+          <artifactId>AddMedicationOrderEP</artifactId>
+          <version>1.0.0</version>
+          <type>zip</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.lib</groupId>
+          <artifactId>epic-connector</artifactId>
+          <version>1.0.0</version>
+          <type>zip</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.lib</groupId>
+          <artifactId>kafkaTransport-connector</artifactId>
+          <version>2.0.5</version>
           <type>zip</type>
       </dependency>
     <dependency>
@@ -290,12 +292,6 @@
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>AddMedicationOrderEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
   </dependencies>
   <repositories>
     <repository>

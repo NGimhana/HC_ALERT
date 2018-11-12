@@ -13,10 +13,10 @@
                 <property description="ID" expression="//patientId" name="id" scope="default" type="STRING"/>
                 <!-- EPIC CONNECTOR INITIALIZATION -->
                 <sequence key="EPIC_CONNECTOR_INITIALIZATION"/>
-                <Epic.searchObservation>
+                <epic.searchObservation>
                     <patient>{$ctx:id}</patient>
                     <code>2823-3</code>
-                </Epic.searchObservation>
+                </epic.searchObservation>
                 <property description="Error Code" expression="json-eval($.entry[0].resource.issue[0].details.coding[0].code)" name="uri.var.issue" scope="default" type="STRING"/>
                 <log level="custom">
                     <property expression="get-property('uri.var.issue')" name="Issue"/>

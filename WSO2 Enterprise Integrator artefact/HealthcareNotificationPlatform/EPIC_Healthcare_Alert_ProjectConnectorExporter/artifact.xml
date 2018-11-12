@@ -2,10 +2,8 @@
     <artifact name="kafkaTransport-connector" groupId="com.wso2.healthcare.solutions.lib" version="2.0.5" type="synapse/lib" serverRole="EnterpriseServiceBus">
         <file>kafkaTransport-connector-2.0.5.zip</file>
     </artifact>
-    <artifact name="cerner-connector" groupId="com.wso2.healthcare.solutions.lib" version="1.0.0" type="synapse/lib" serverRole="EnterpriseServiceBus">
-        <file>cerner-connector-1.0.0.zip</file>
-    </artifact>
-    <artifact name="Epic-connector" groupId="com.wso2.healthcare.solutions.lib" version="1.0.0" type="synapse/lib" serverRole="EnterpriseServiceBus">
-        <file>Epic-connector-1.0.0.zip</file>
+    <artifact name="epic-connector" groupId="com.wso2.healthcare.solutions.lib" version="1.0.0" type="synapse/lib"
+              serverRole="EnterpriseServiceBus">
+        <file>epic-connector-1.0.0.zip</file>
     </artifact>
 </artifacts>
