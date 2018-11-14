@@ -15,9 +15,9 @@
       <com.wso2.healthcare.solutions.inbound-endpoint_._Blood_Glucose_EPIC_Kafka_Inbound>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.inbound-endpoint_._Blood_Glucose_EPIC_Kafka_Inbound>
     <artifact.types>jaggery/app=zip,synapse/priority-executor=xml,synapse/inbound-endpoint=xml,service/rule=aar,synapse/message-store=xml,event/stream=json,service/meta=xml,datasource/datasource=xml,synapse/proxy-service=xml,bpel/workflow=zip,synapse/sequence=xml,synapse/endpointTemplate=xml,carbon/application=car,wso2/gadget=dar,synapse/api=xml,synapse/event-source=xml,synapse/message-processors=xml,event/receiver=xml,lib/dataservice/validator=jar,synapse/template=xml,synapse/endpoint=xml,lib/carbon/ui=jar,lib/synapse/mediator=jar,event/publisher=xml,synapse/local-entry=xml,synapse/task=xml,webapp/jaxws=war,registry/resource=zip,synapse/configuration=xml,service/axis2=aar,synapse/lib=zip,synapse/sequenceTemplate=xml,event/execution-plan=siddhiql,service/dataservice=dbs,web/application=war,lib/library/bundle=jar</artifact.types>
+    <com.wso2.healthcare.solutions.dataservice_._DiagnosticAlertDataService>capp/DataServicesServer</com.wso2.healthcare.solutions.dataservice_._DiagnosticAlertDataService>
       <com.wso2.healthcare.solutions.sequence_._medicationOrderSequence>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.sequence_._medicationOrderSequence>
-    <com.wso2.healthcare.solutions.dataservice_._DiagnosticAlertDataService>capp/DataServicesServer</com.wso2.healthcare.solutions.dataservice_._DiagnosticAlertDataService>
       <com.wso2.healthcare.solutions.sequence_._EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml>
           capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.sequence_._EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml>
@@ -55,10 +55,10 @@
       </com.wso2.healthcare.solutions.resource_._SelectPractitionerByPractitionerIdEP>
       <com.wso2.healthcare.solutions.resource_._AddPractitionerEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._AddPractitionerEP>
-      <com.wso2.healthcare.solutions.resource_._SelectPatientByPatientIdEP>capp/EnterpriseServiceBus
-      </com.wso2.healthcare.solutions.resource_._SelectPatientByPatientIdEP>
       <com.wso2.healthcare.solutions.task_._EpicDataPollMedicationOrderTask>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.task_._EpicDataPollMedicationOrderTask>
+      <com.wso2.healthcare.solutions.resource_._SelectPatientByPatientIdEP>capp/EnterpriseServiceBus
+      </com.wso2.healthcare.solutions.resource_._SelectPatientByPatientIdEP>
       <com.wso2.healthcare.solutions.inbound-endpoint_._Medication_Order_EPIC_Kafka_Inbound>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.inbound-endpoint_._Medication_Order_EPIC_Kafka_Inbound>
       <com.wso2.healthcare.solutions.lib_._epic-connector>capp/EnterpriseServiceBus
@@ -66,9 +66,9 @@
       <com.wso2.healthcare.solutions.resource_._AddPatientEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._AddPatientEP>
     <com.wso2.healthcare.solutions.task_._EpicDataPollCholesterolTask>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.task_._EpicDataPollCholesterolTask>
-    <com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>
       <com.wso2.healthcare.solutions.resource_._SelectedEpicPatientsEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._SelectedEpicPatientsEP>
+    <com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>capp/EnterpriseServiceBus</com.wso2.healthcare.solutions.lib_._kafkaTransport-connector>
       <com.wso2.healthcare.solutions.resource_._SelectMedicationOrderByOrderIdEP>capp/EnterpriseServiceBus
       </com.wso2.healthcare.solutions.resource_._SelectMedicationOrderByOrderIdEP>
       <com.wso2.healthcare.solutions.sequence_._EPIC_CONNECTOR_INITIALIZATION>capp/EnterpriseServiceBus
@@ -83,52 +83,46 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
-      <artifactId>DiagnosticAlertDataService</artifactId>
+        <groupId>com.wso2.healthcare.solutions.resource</groupId>
+        <artifactId>SelectPatientByPatientIdEP</artifactId>
       <version>1.0.0</version>
-      <type>dbs</type>
+        <type>zip</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
-      <artifactId>MedicationOrderDataService</artifactId>
+        <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
+        <artifactId>Blood_Hemoglobin_EPIC_Kafka_Inbound</artifactId>
       <version>1.0.0</version>
-      <type>dbs</type>
+        <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
-      <artifactId>RDBMSDataService</artifactId>
-      <version>1.0.0</version>
-      <type>dbs</type>
+        <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+        <artifactId>EPIC_REPORT_FILTER</artifactId>
+        <version>1.0.0</version>
+        <type>xml</type>
     </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.task</groupId>
-          <artifactId>EpicDataPollCholesterolTask</artifactId>
+          <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+          <artifactId>EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml</artifactId>
           <version>1.0.0</version>
           <type>xml</type>
       </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.task</groupId>
-          <artifactId>EpicDataPollGlucoseObservationTask</artifactId>
+          <groupId>com.wso2.healthcare.solutions.lib</groupId>
+          <artifactId>kafkaTransport-connector</artifactId>
+          <version>2.0.5</version>
+          <type>zip</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+          <artifactId>EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE</artifactId>
           <version>1.0.0</version>
           <type>xml</type>
       </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.task</groupId>
-          <artifactId>EpicDataPollHbObservationTask</artifactId>
+          <groupId>com.wso2.healthcare.solutions.resource</groupId>
+          <artifactId>AddMedicationOrderEP</artifactId>
           <version>1.0.0</version>
-          <type>xml</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.task</groupId>
-          <artifactId>EpicDataPollMedicationOrderTask</artifactId>
-          <version>1.0.0</version>
-          <type>xml</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.task</groupId>
-          <artifactId>EpicDataPollPotassiumObservationTask</artifactId>
-          <version>1.0.0</version>
-          <type>xml</type>
+          <type>zip</type>
       </dependency>
       <dependency>
           <groupId>com.wso2.healthcare.solutions.resource</groupId>
@@ -137,50 +131,14 @@
           <type>zip</type>
       </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>AddPatientEP</artifactId>
+          <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
+          <artifactId>RDBMSDataService</artifactId>
           <version>1.0.0</version>
-          <type>zip</type>
+          <type>dbs</type>
       </dependency>
       <dependency>
           <groupId>com.wso2.healthcare.solutions.resource</groupId>
           <artifactId>AddPractitionerEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>SelectMedicationOrderByOrderIdEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>SelectPatientByPatientIdEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>SelectPractitionerByPractitionerIdEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>SelectReportByReportIdEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>SelectedEpicPatientsEP</artifactId>
-          <version>1.0.0</version>
-          <type>zip</type>
-      </dependency>
-      <dependency>
-          <groupId>com.wso2.healthcare.solutions.resource</groupId>
-          <artifactId>AddMedicationOrderEP</artifactId>
           <version>1.0.0</version>
           <type>zip</type>
       </dependency>
@@ -191,104 +149,146 @@
           <type>zip</type>
       </dependency>
       <dependency>
-          <groupId>com.wso2.healthcare.solutions.lib</groupId>
-          <artifactId>kafkaTransport-connector</artifactId>
-          <version>2.0.5</version>
+          <groupId>com.wso2.healthcare.solutions.task</groupId>
+          <artifactId>EpicDataPollMedicationOrderTask</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.resource</groupId>
+          <artifactId>SelectedEpicPatientsEP</artifactId>
+          <version>1.0.0</version>
           <type>zip</type>
       </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
+          <artifactId>Medication_Order_EPIC_Kafka_Inbound</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+          <artifactId>EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
+          <artifactId>blood_Cholesterol_EPIC_Kafka_Inbound</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+          <artifactId>observationSequence</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.task</groupId>
+          <artifactId>EpicDataPollPotassiumObservationTask</artifactId>
+          <version>1.0.0</version>
+          <type>xml</type>
+      </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
-      <artifactId>Blood_Glucose_EPIC_Kafka_Inbound</artifactId>
+        <groupId>com.wso2.healthcare.solutions.resource</groupId>
+        <artifactId>SelectPractitionerByPractitionerIdEP</artifactId>
+      <version>1.0.0</version>
+        <type>zip</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+        <artifactId>medicationOrderSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
-      <artifactId>Blood_Hemoglobin_EPIC_Kafka_Inbound</artifactId>
+        <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
+        <artifactId>MedicationOrderDataService</artifactId>
+      <version>1.0.0</version>
+        <type>dbs</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.resource</groupId>
+        <artifactId>AddPatientEP</artifactId>
+      <version>1.0.0</version>
+        <type>zip</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.resource</groupId>
+        <artifactId>SelectMedicationOrderByOrderIdEP</artifactId>
+      <version>1.0.0</version>
+        <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+        <artifactId>medicationOrderFaultSequence</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
-      <artifactId>Blood_Potassium_EPIC_Kafka_Inbound</artifactId>
+        <groupId>com.wso2.healthcare.solutions.resource</groupId>
+        <artifactId>SelectReportByReportIdEP</artifactId>
+        <version>1.0.0</version>
+        <type>zip</type>
+    </dependency>
+      <dependency>
+          <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
+          <artifactId>Blood_Potassium_EPIC_Kafka_Inbound</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
-      <artifactId>Medication_Order_EPIC_Kafka_Inbound</artifactId>
+        <groupId>com.wso2.healthcare.solutions.task</groupId>
+        <artifactId>EpicDataPollGlucoseObservationTask</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
-      <artifactId>blood_Cholesterol_EPIC_Kafka_Inbound</artifactId>
+        <groupId>com.wso2.healthcare.solutions.task</groupId>
+        <artifactId>EpicDataPollHbObservationTask</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.inbound-endpoint</groupId>
+        <artifactId>Blood_Glucose_EPIC_Kafka_Inbound</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.task</groupId>
+        <artifactId>EpicDataPollCholesterolTask</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_CONNECTOR_INITIALIZATION</artifactId>
+        <artifactId>EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE.xml</artifactId>
+        <artifactId>observationFaultSequence</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+        <groupId>com.wso2.healthcare.solutions.dataservice</groupId>
+        <artifactId>DiagnosticAlertDataService</artifactId>
+      <version>1.0.0</version>
+        <type>dbs</type>
+    </dependency>
+    <dependency>
+      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
+        <artifactId>EPIC_CONNECTOR_INITIALIZATION</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
       <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_DATA_POLL_GLUCOSE_OBSERVATION_SEQUENCE</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_DATA_POLL_HB_OBSERVATION_SEQUENCE</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>EPIC_REPORT_FILTER</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>medicationOrderFaultSequence</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>medicationOrderSequence</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>observationFaultSequence</artifactId>
-      <version>1.0.0</version>
-      <type>xml</type>
-    </dependency>
-    <dependency>
-      <groupId>com.wso2.healthcare.solutions.sequence</groupId>
-      <artifactId>observationSequence</artifactId>
+        <artifactId>EPIC_DATA_POLL_POTASSIUM_OBSERVATION_SEQUENCE.xml</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>

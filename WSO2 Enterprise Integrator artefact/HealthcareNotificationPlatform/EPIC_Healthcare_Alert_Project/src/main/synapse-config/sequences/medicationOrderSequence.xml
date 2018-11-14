@@ -20,7 +20,11 @@
         <property expression="get-property('uri.var.prescriberId')" name="PrescriberID"/>
     </log>
     <header name="Accept" scope="transport" value="application/json"/>
-    <call/>
+    <call>
+        <endpoint>
+            <http method="get" uri-template="https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Patient/{uri.var.patientid}"/>
+        </endpoint>
+    </call>
     <property description="Patient Name" expression="json-eval($.name[0].text)" name="uri.var.patientName" scope="default" type="STRING"/>
     <property description="Home Address Line" expression="json-eval($.address[0].line[0])" name="uri.var.patientAddress" scope="default" type="STRING"/>
     <property description="Home Address City" expression="json-eval($.address[0].city)" name="uri.var.addressCity" scope="default" type="STRING"/>
@@ -30,7 +34,12 @@
     <property description="Gender" expression="json-eval($.gender)" name="uri.var.gender" scope="default" type="STRING"/>
     <property description="BirthDate" expression="json-eval($.birthDate)" name="uri.var.birthdate" scope="default" type="STRING"/>
     <header name="Accept" scope="transport" value="application/json"/>
-    <call/>
+    <call>
+        <endpoint>
+            <http method="get"
+                  uri-template="https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Practitioner/{uri.var.prescriberId}"/>
+        </endpoint>
+    </call>
     <property description="Practitioner Name" expression="json-eval($.name.text)" name="uri.var.pratitionerName" scope="default" type="STRING"/>
     <!-- Checks Whether Patient exists in Patient Table -->
     <payloadFactory media-type="xml">
