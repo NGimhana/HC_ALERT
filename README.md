@@ -14,8 +14,6 @@ Since EPIC follows patient-centric FHIR standards, storing of Patient Ids in a d
 
 Data polling is done by WSO2 EI Scheduled Tasks . Each Schedule Task executes Sequence. Each Sequence is used to fetch some Unique data. Currently fetches Observation EMRs and  Medication Order EMRs.(Interval:12h count :-1)
 
-Always use Accept Header for avoiding unexpected runtime errors. : Since default EPIC response content-type is application/xml.
-
 This is built as a Mock service and in production can have better ways to data retrieval.
 
 Find Below table for the Sequences and what they are fetching.
@@ -28,7 +26,7 @@ Find Below table for the Sequences and what they are fetching.
 |2093-3|Blood Cholesterol| EPIC_DATA_POLL_CHOLESTEROL_OBSERVATION_SEQUENCE|
 
 ##### EPIC APIS Used 
-Use WSO2 ESB EPIC Connector for execute EPIC APIs. Below synapse configuration sample shows Epic Observation operation
+Use [WSO2 ESB EPIC Connector](https://store.wso2.com/store/assets/esbconnector/details/face7568-3bcd-4f10-882e-2941c6528df7) for execute EPIC APIs. Below synapse configuration sample shows Epic Observation operation
 ```
 <Epic.searchObservation>
     <patient>{$ctx:id}</patient>
