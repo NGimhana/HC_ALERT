@@ -46,7 +46,7 @@ In addition EPIC_DATA_POLL_MEDICATION_ORDER_SEQUENCE for fetching Medication Ord
 
 #### Database Schema
 
-![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Architectural%20Diagrams/Entity%20Relationship%20Diagram%20-%20New%20Page.png)
+![alt text](https://raw.githubusercontent.com/NGimhana/HC_ALERT/master/docs/Architectural%20Diagrams/entity_relationship_diagram%20.png)
    
 
 **Step 2 : WSO2 EI validates retrieved responses.**
